@@ -118,14 +118,18 @@ namespace SmallCrm
             var soldProducts = new List<Product>();
              soldProducts = productList1.Concat(productList2).ToList();
 
-            var topSaleProds = (from p in soldProducts
-                                group p by p.ProductId into pg
-                                orderby pg.Count() descending
-                                select pg.Key).ToList();
+           
+
+            var topSaleProds = (soldProducts
+                                .GroupBy(p => p.ProductId)
+                                .OrderByDescending(grp => grp.Count())
+                                .Take(10))
+                                .ToList();
+            
                               
              
-            for(var i =0; i < 10; i++) {
-                Console.WriteLine($"TOP SALE PRODUCT: {topSaleProds[i]}");
+            for(var i =0; i <topSaleProds.Count; i++) {
+                Console.WriteLine($"TOP SALE PRODUCT: {topSaleProds[i].Key}");
             }
        
 
