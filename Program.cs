@@ -100,7 +100,7 @@ namespace SmallCrm
             }
             Console.WriteLine("~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ");
 
-            Console.WriteLine($"Customer: {custom2.PrintFullName()}   ID: {custom1.IdCust}");
+            Console.WriteLine($"Customer: {custom2.PrintFullName()}   ID: {custom2.IdCust}");
             foreach (var o in custom2.OrderList) {
                 Console.WriteLine(o.PrintOrder());
             }
@@ -109,7 +109,7 @@ namespace SmallCrm
             }
 
 
-            if(ord1.TotalAmount > ord2.TotalAmount) {
+            if( TopCustomer(custom1.OrderList) > TopCustomer(custom2.OrderList)) {
                 Console.WriteLine($"TOP CUSTOMER: {custom1.PrintFullName()} TotalAmmount {ord1.TotalAmount} ");
             } else {
                 Console.WriteLine($"TOP CUSTOMER: {custom2.PrintFullName()} TotalAmmount {ord2.TotalAmount}");
@@ -157,9 +157,14 @@ namespace SmallCrm
             return total;
         }
 
-        
-        
-        
+        static decimal TopCustomer(List<Order> orderList)
+        {
+            var total = 0.00M;
+            foreach (var o in orderList) {
+                total = total + o.TotalAmount;
+            }
+            return total;
+        }
 
     }
 }
