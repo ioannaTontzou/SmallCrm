@@ -8,7 +8,7 @@ namespace SmallCrm
     {
         static void Main(string[] args)
         {
-            string[] products = System.IO.File.ReadAllLines(@"C:\Users\KCA11\source\repos\SmallCrm\products.csv");
+            string[] products = System.IO.File.ReadAllLines(@"products.csv");
             var  random = new Random();
 
             IEnumerable<Product> queryProduct =
@@ -118,7 +118,10 @@ namespace SmallCrm
             var soldProducts = new List<Product>();
              soldProducts = productList1.Concat(productList2).ToList();
 
-           
+            /*var topSaleProds = (from p in soldProducts
+                                group p by p.ProductId into pg
+                                orderby pg.Count() descending
+                                select pg.Key).ToList(); */
 
             var topSaleProds = (soldProducts
                                 .GroupBy(p => p.ProductId)
